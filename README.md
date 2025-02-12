@@ -3,11 +3,14 @@
 ## Overview
 This repository contains the official implementation of the SACM framework for Chinese speech decoding, as described in our paper "SACM: SEEG and Audio Contrastive Matching Framework for Chinese Speech Decoding".
 
+## Dataset
+The experiment uses a corpus of 48 Mandarin Chinese monosyllabic words. The word list can be found in `A_Preprocessing/labels.py`. The dataset is available upon request.
+
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/[username]/SACM.git
+git clone https://github.com/WangHongbinary/SACM.git
 cd SACM
 ```
 
@@ -19,14 +22,14 @@ pip install -r requirements.txt
 ## Usage
 
 ### Data Preprocessing
-1. Process SEEG and audio data:
+Process SEEG and audio data:
 ```bash
 python A_Preprocessing/preprocess_SEEG.py
 ```
 Configuration parameters can be adjusted in `A_Preprocessing/preprocess_config.py`.
 
 ### Feature Extraction
-1. Extract audio features:
+Extract audio features:
 ```bash
 python C_Decoding/dataset/wav_SEEG.py
 ```
@@ -67,7 +70,7 @@ The repository includes additional code for:
 ```
 
 ## Citation
-If you use this code in your research, please cite our paper:
+Cite our paper:
 ```
 [Citation information will be added upon publication]
 ```
