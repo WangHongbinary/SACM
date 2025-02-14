@@ -23,14 +23,14 @@ if __name__ == '__main__':
     ax1.tick_params(axis='x', labelsize=30)
     ax1.tick_params(axis='y', labelsize=30)
     ax1.set_xlabel('Time (seconds)', fontsize=30)
-    ax1.set_ylabel('SEEG Power (70–170 Hz)', fontsize=30)
+    ax1.set_ylabel('SEEG Power', fontsize=30)
 
     ax2 = ax1.twinx()
     t2 = np.arange(int(1.6*4*16000)) / int(16000)
     line_Audio = ax2.plot(t2, Audio, color='#1D43A3', linewidth=3, label='Audio')
     ax2.set_ylim(0, 1.5)
     ax2.tick_params(axis='y', labelsize=30)
-    ax2.set_ylabel('Audio Signal Amplitude', fontsize=30)
+    ax2.set_ylabel('Audio Amplitude', fontsize=30)
     
     lines = line_A + line_B + line_C + line_D + line_SMC + line_Audio
     labels = [line.get_label() for line in lines]

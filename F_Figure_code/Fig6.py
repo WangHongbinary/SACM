@@ -26,7 +26,7 @@ def plot_individual_bar():
     for i in range(len(word_means)):
         all_means.append(word_means[i])
         all_means.append(rest_means[i])
-        labels.append(f'S0{i+1}')
+        labels.append(f'{i+1}')
         colors.append('#1D43A3')
         colors.append('#FF7F0E')
     labels[-1] = 'Avg.'
@@ -40,7 +40,7 @@ def plot_individual_bar():
     
     plt.xticks(xticks_pos, labels, fontsize=32)
     plt.yticks(fontsize=32)
-    plt.xlabel('Subjects', fontsize=32)
+    plt.xlabel('Subject', fontsize=32)
     plt.ylabel('Mean Squared Amplitude', fontsize=32)
 
     from matplotlib.lines import Line2D
