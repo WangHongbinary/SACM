@@ -21,7 +21,7 @@ def plot_cm_seeg(true, pred, name, acc):
     plt.imshow(cm, cmap='Oranges', vmin=0, vmax=0.4)
     plt.title(f'Top-1 Accuracy: {acc}%', fontsize=34)
     plt.xlabel('Predicted label', fontsize=34)
-    plt.ylabel('Truth label', fontsize=34)
+    plt.ylabel('True label', fontsize=34)
     plt.xticks([], [])
     plt.yticks([], [])
     plt.tight_layout()

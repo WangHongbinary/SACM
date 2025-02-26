@@ -46,7 +46,7 @@ def plot_individual_bar():
     from matplotlib.lines import Line2D
     legend_elements = [Line2D([0], [0], color='#1D43A3', lw=20, label='Speech'),
                        Line2D([0], [0], color='#FF7F0E', lw=20, label='Non-Speech')]
-    plt.legend(handles=legend_elements, fontsize=32, borderpad=0.6)
+    plt.legend(handles=legend_elements, fontsize=32, borderpad=0.6, ncol=2, loc='upper center')
 
     plt.tight_layout()
     plt.savefig('Fig6.eps', bbox_inches='tight', dpi=300)
