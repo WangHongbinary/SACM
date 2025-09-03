@@ -7,9 +7,8 @@
 seeds=(2024 2025 2026 2027 2028 2029)
 gpus=(0 1 2 3 4 5)
 
-subjects=('S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08')
-systems=('Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Neuracle/V_48' 'Neuracle/V_48')
-
+subjects=('S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10')
+systems=('Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Neuracle/V_48' 'Neuracle/V_48' 'Natus/V_48' 'Neuracle/V_48')
 
 #------------------------------------------------------------------------read_full random #
 for s in ${!subjects[@]}
@@ -209,26 +208,26 @@ wait
 echo "All tasks completed"
 
 
-#------------------------------------------------------------------------read_full_bipolar random #
-for s in ${!subjects[@]}
-do
-    subject_id=${subjects[$s]}
-    device_system=${systems[$s]}
-    for i in ${!seeds[@]}
-    do
-        seed=${seeds[$i]}
-        gpu_id=${gpus[$i]}
-        echo "Running on GPU $gpu with seed $seed"
-        python ../train.py --device_system=$device_system --seed=$seed --subject_id=$subject_id --gpu_id=$gpu_id --channel_path='read_full_bipolar' --random=True &
-        sleep 3
-    done
+# #------------------------------------------------------------------------read_full_bipolar random #
+# for s in ${!subjects[@]}
+# do
+#     subject_id=${subjects[$s]}
+#     device_system=${systems[$s]}
+#     for i in ${!seeds[@]}
+#     do
+#         seed=${seeds[$i]}
+#         gpu_id=${gpus[$i]}
+#         echo "Running on GPU $gpu with seed $seed"
+#         python ../train.py --device_system=$device_system --seed=$seed --subject_id=$subject_id --gpu_id=$gpu_id --channel_path='read_full_bipolar' --random=True &
+#         sleep 3
+#     done
 
-    wait
-    echo "subject tasks completed"
-done 
+#     wait
+#     echo "subject tasks completed"
+# done 
 
-wait
-echo "All tasks completed"
+# wait
+# echo "All tasks completed"
 
 
 # #------------------------------------------------------------------------read_single_A_bipolar #

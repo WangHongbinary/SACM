@@ -3,19 +3,21 @@ class Natus_Config():
     """
 
     def __init__(self) -> None:
-       self.raw_root_path = '/mnt/data1/whb/SACM_Data/raw/'
-       self.processed_root_path = '/mnt/data1/whb/SACM_Data/processed/'
+       self.raw_root_path = '/mnt/data1/whb/Ours/SACM_Data/raw/'
+       self.processed_root_path = '/mnt/data1/whb/Ours/SACM_Data/processed/'
 
        self.paradigm = 'V_48'
-       self.subject_list = ['S01', 'S02', 'S03', 'S04', 'S05', 'S06']
+ 
+       self.subject_list = ['S01', 'S02', 'S03', 'S04', 'S05', 'S06', 'S09']
        self.segment_list = [[[], [], [], []],
+                            [[], [], [], []],
                             [[], [], [], []],
                             [[], [], [], []],
                             [[], [], [], []],
                             [[], [], [], []],
                             [[], [], [], []]]
 
-       self.session_list = [4, 4, 4, 4, 4, 4]
+       self.session_list = [4, 4, 4, 4, 4, 4, 4]
 
        # full channels
        self.channel_list = {'S01':['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 
@@ -60,7 +62,13 @@ class Natus_Config():
                                    'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 
                                    'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 
                                    'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 
-                                   'G1', 'G2', 'G3', 'G4', 'G5', 'G6']} # 54
+                                   'G1', 'G2', 'G3', 'G4', 'G5', 'G6'], # 54
+                            'S09':['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 
+                                   'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 
+                                   'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 
+                                   'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 
+                                   'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 
+                                   'F1', 'F2', 'F3', 'F4', 'F5', 'F6']} # 46
 
        # SMC channel
        # self.single_channel_list = {'S01':['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
@@ -68,7 +76,8 @@ class Natus_Config():
        #                             'S03':['G1', 'G2', 'G3', 'G4', 'G5', 'G6'],
        #                             'S04':['F1', 'F2', 'F3', 'F4', 'F5', 'F6'],
        #                             'S05':['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8'],  # wo/SMC
-       #                             'S06':['G1', 'G2', 'G3', 'G4', 'G5', 'G6']}
+       #                             'S06':['G1', 'G2', 'G3', 'G4', 'G5', 'G6'],
+       #                             'S09':['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8']}
 
        # single channel
        self.single_channel_list = {'S01':['E1', 'E2', 'E3', 'E4', 'E5', 'E6'],
@@ -76,7 +85,8 @@ class Natus_Config():
                                    'S03':['G1', 'G2', 'G3', 'G4', 'G5', 'G6'],
                                    'S04':['F1', 'F2', 'F3', 'F4', 'F5', 'F6'],
                                    'S05':['G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8'],
-                                   'S06':['G1', 'G2', 'G3', 'G4', 'G5', 'G6']}
+                                   'S06':['G1', 'G2', 'G3', 'G4', 'G5', 'G6'],
+                                   'S09':['F1', 'F2', 'F3', 'F4', 'F5', 'F6']}
 
        # bad channel
        self.bad_channel_list = {'S01':[],
@@ -84,7 +94,8 @@ class Natus_Config():
                                 'S03':[],
                                 'S04':[],
                                 'S05':[],
-                                'S06':[]}
+                                'S06':[],
+                                'S09':[]}
 
        self.env_sample_rate = 200
        self.wav_sample_rate = 16000
@@ -115,12 +126,14 @@ class Neuracle_Config():
     """
 
     def __init__(self) -> None:
-       self.raw_root_path = '/mnt/data1/whb/SACM_Data/raw/'
-       self.processed_root_path = '/mnt/data1/whb/SACM_Data/processed/'
+       self.raw_root_path = '/mnt/data1/whb/Ours/SACM_Data/raw/'
+       self.processed_root_path = '/mnt/data1/whb/Ours/SACM_Data/processed/'
 
        self.paradigm = 'V_48'
-       self.subject_list = ['S07', 'S08']
+
+       self.subject_list = ['S07', 'S08', 'S10']
        self.segment_list = [[[1, 2], [1, 2], [1, 2], [1, 2]],
+                            [[1], [1], [1], [1]],
                             [[1], [1], [1], [1]]]
 
        self.session_list = [4, 4, 4]
@@ -137,19 +150,28 @@ class Neuracle_Config():
                                    'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 
                                    'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 
                                    'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 
-                                   'G1', 'G2', 'G3', 'G4', 'G5', 'G6']} # 54
+                                   'G1', 'G2', 'G3', 'G4', 'G5', 'G6'], # 54
+                            'S10':['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 
+                                   'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 
+                                   'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 
+                                   'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 
+                                   'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 
+                                   'F1', 'F2', 'F3', 'F4', 'F5', 'F6']} # 46
 
        # SMC channel
        # self.single_channel_list = {'S07':['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'], wo/SMC
-       #                             'S08':['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8']}
+       #                             'S08':['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'],
+       #                             'S10':['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8']}
        
        # single channel
        self.single_channel_list = {'S07':['F1', 'F2', 'F3', 'F4', 'F5', 'F6'],
-                                   'S08':['G1', 'G2', 'G3', 'G4', 'G5', 'G6']}
+                                   'S08':['G1', 'G2', 'G3', 'G4', 'G5', 'G6'],
+                                   'S10':['F1', 'F2', 'F3', 'F4', 'F5', 'F6']}
 
        # bad channel
        self.bad_channel_list = {'S07':[],
-                                'S08':[]}
+                                'S08':[],
+                                'S10':[]}
 
        self.env_sample_rate = 200
        self.wav_sample_rate = 16000

@@ -7,8 +7,8 @@
 seeds=(2024 2025 2026 2027 2028 2029)
 gpus=(0 1 2 3 4 5)
 
-subjects=('S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08')
-systems=('Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Neuracle/V_48' 'Neuracle/V_48')
+subjects=('S01' 'S02' 'S03' 'S04' 'S05' 'S06' 'S07' 'S08' 'S09' 'S10')
+systems=('Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Natus/V_48' 'Neuracle/V_48' 'Neuracle/V_48' 'Natus/V_48' 'Neuracle/V_48')
 
 #------------------------------------------------------------------------------------read_full random #
 

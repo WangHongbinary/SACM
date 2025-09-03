@@ -11,13 +11,13 @@ def plot_individual_bar():
     Amplitude_word = data['Amplitude_word']
     Amplitude_rest = data['Amplitude_rest']
 
-    word1, word2, word3, word4, word5, word6, word7, word8 = np.array_split(Amplitude_word, 8)
-    rest1, rest2, rest3, rest4, rest5, rest6, rest7, rest8 = np.array_split(Amplitude_rest, 8)
+    word1, word2, word3, word4, word5, word6, word7, word8, word9, word10 = np.array_split(Amplitude_word, 10)
+    rest1, rest2, rest3, rest4, rest5, rest6, rest7, rest8, rest9, rest10 = np.array_split(Amplitude_rest, 10)
 
-    word_means = [np.mean(word1), np.mean(word2), np.mean(word3), np.mean(word4), 
-                  np.mean(word5), np.mean(word6), np.mean(word7), np.mean(word8), np.mean(Amplitude_word)]
-    rest_means = [np.mean(rest1), np.mean(rest2), np.mean(rest3), np.mean(rest4),
-                  np.mean(rest5), np.mean(rest6), np.mean(rest7), np.mean(rest8), np.mean(Amplitude_rest)]
+    word_means = [np.mean(word1), np.mean(word2), np.mean(word3), np.mean(word4), np.mean(word5), 
+                  np.mean(word6), np.mean(word7), np.mean(word8), np.mean(word9), np.mean(word10), np.mean(Amplitude_word)]
+    rest_means = [np.mean(rest1), np.mean(rest2), np.mean(rest3), np.mean(rest4), np.mean(rest5), 
+                  np.mean(rest6), np.mean(rest7), np.mean(rest8), np.mean(rest9), np.mean(rest10), np.mean(Amplitude_rest)]
 
     all_means = []
     labels = []

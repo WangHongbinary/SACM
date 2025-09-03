@@ -1,8 +1,8 @@
 import numpy as np
 from scipy.stats import ttest_rel
 
-data1 = np.loadtxt('./test_data/detect_CAR_random.csv')
-data2 = np.loadtxt('./test_data/detect_CAR_full.csv')
+data1 = np.loadtxt('./test_data/word_BP_random.csv')
+data2 = np.loadtxt('./test_data/word_BP_full.csv')
 
 stat, p = ttest_rel(data1, data2)
 print(data1.shape)

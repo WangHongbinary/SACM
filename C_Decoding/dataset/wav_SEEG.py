@@ -15,7 +15,7 @@ class WavLoader(Dataset):
                  feature_type='hubert_8', 
                  vad_half_window=0.3,
                  feature_path='',
-                 root='/mnt/data1/whb/SACM_Data/processed'):
+                 root='/mnt/data1/whb/Ours/SACM_Data/processed'):
         """Extract audio features
 
         Parameters
@@ -179,7 +179,7 @@ def extract_layer_number(feature_type):
         raise ValueError("no '_' in the str")
 
 
-def load_features(device_system, feature_type, subject_id, vad_half_window, gpu_id, root='/mnt/data1/whb/SACM_Data/processed'):
+def load_features(device_system, feature_type, subject_id, vad_half_window, gpu_id, root='/mnt/data1/whb/Ours/SACM_Data/processed'):
     """Extract features based on the feature_type
 
     Parameters

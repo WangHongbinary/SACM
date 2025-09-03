@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 
-def load_wav_features(root_path='/mnt/data1/whb/SACM_Data/processed', 
+def load_wav_features(root_path='/mnt/data1/whb/Ours/SACM_Data/processed', 
                       device_system='Natus/V_48',
                       subject_id='S08', 
                       feature_type='hubert_8', 

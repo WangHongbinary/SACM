@@ -12,7 +12,7 @@ def seeg_dataset(device_system='Neuracle/V_48',
                  channel_path='read_good', 
                  label_type='word', 
                  ea=False,
-                 root='/mnt/data1/whb/SACM_Data/processed'):
+                 root='/mnt/data1/whb/Ours/SACM_Data/processed'):
     """Load SEEG dataset
 
     Parameters

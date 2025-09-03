@@ -6,7 +6,7 @@ def seeg_dataset(device_system='Natus/V_48',
                  subject_id='S08', 
                  session_num=4, 
                  channel_path='read_good', 
-                 root='/mnt/data1/whb/SACM_Data/processed'):
+                 root='/mnt/data1/whb/Ours/SACM_Data/processed'):
     """Load SEEG dataset
 
     Parameters
