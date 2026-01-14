@@ -216,9 +216,10 @@ def load_features(device_system, feature_type, subject_id, vad_half_window, gpu_
 
 
 if __name__ == '__main__':
-    torch.cuda.set_device(2)
-    subject_ids = ['S01', 'S02', 'S03', 'S04', 'S05', 'S06', 'S07', 'S08']
-    device_systems = ['Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Neuracle/V_48', 'Neuracle/V_48']
+    torch.cuda.set_device(6)
+    torch.set_num_threads(4)
+    subject_ids = ['S01', 'S02', 'S03', 'S04', 'S05', 'S06', 'S07', 'S08', 'S09', 'S10']
+    device_systems = ['Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Natus/V_48', 'Neuracle/V_48', 'Neuracle/V_48', 'Natus/V_48', 'Neuracle/V_48']
 
     # feature_types = ['hubert_0', 
     #                  'hubert_1', 
@@ -233,7 +234,7 @@ if __name__ == '__main__':
     #                  'hubert_10', 
     #                  'hubert_11']
 
-    feature_types = ['hubert_8']
+    feature_types = ['hubertraw_0']
 
     for s, subject_id in enumerate(subject_ids):
         for feature_type in feature_types:
@@ -241,5 +242,5 @@ if __name__ == '__main__':
                                     feature_type=feature_type, 
                                     subject_id=subject_id, 
                                     vad_half_window=0.5,
-                                    gpu_id=0)
+                                    gpu_id=6)
             print(f'subject_{subject_id}_feature_{feature_type}.shape:{feature.shape}')

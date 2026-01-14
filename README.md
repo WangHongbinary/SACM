@@ -71,8 +71,8 @@ Results will be saved as CSV files in the log directory.
 
 The repository includes additional code for:
 
-- Statistical analysis: `D_Stats_test/`
-- Wave classification: `E_Wav_clf/`
+- Speech decoding on VocalMind: `D_Decoding_VocalMind/`
+- Statistical analysis: `E_Stats_test/`
 - Figure generation: `F_Figure_code/`
 
 ## Project Structure
@@ -80,10 +80,10 @@ The repository includes additional code for:
 ```
 .
 ├── A_Preprocessing/      # Data preprocessing scripts
-├── B_Detect/             # Speech detection implementation
-├── C_Decoding/           # Speech decoding implementation
-├── D_Stats_test/         # Statistical analysis
-├── E_Wav_clf/            # Wave classification
+├── B_Detect/             # Speech detection implementation on HUST-MIND
+├── C_Decoding/           # Speech decoding implementation on HUST-MIND
+├── D_Decoding_VocalMind/ # Speech decoding implementation on VocalMind
+├── E_Stats_test/         # Statistical analysis
 └── F_Figure_code/        # Figure generation scripts
 ```
 

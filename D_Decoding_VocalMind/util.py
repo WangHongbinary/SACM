@@ -16,7 +16,7 @@ def log_print(msg):
     print(msg)
 
 
-def segment_level_eval(outputs, wav_features, label, batchsize, loss_f, p_5, p_1, loss, temperature, device):
+def segment_level_eval(outputs, wav_features, label, batchsize, loss_f, p_k, p_1, topk, loss, temperature, device):
     """Evaluation function to compute loss and assess model performance
 
     Parameters
@@ -31,10 +31,12 @@ def segment_level_eval(outputs, wav_features, label, batchsize, loss_f, p_5, p_1
         The batch size
     loss_f: 
         Type of loss function
-    p_5: 
+    p_k: 
         Number of samples correctly predicted in the top-5
     p_1: 
         Number of samples correctly predicted in the top-1
+    topk:
+        Top-k accuracy
     loss: 
         Current total loss value
     temperature: 
@@ -42,6 +44,7 @@ def segment_level_eval(outputs, wav_features, label, batchsize, loss_f, p_5, p_1
     device: 
         CPU or GPU ID
     """
+
 
     if loss_f == 'CLIP':
         clip_loss, inner_product = CLIP_Xent(outputs, wav_features, batchsize, temperature, device)
@@ -56,18 +59,18 @@ def segment_level_eval(outputs, wav_features, label, batchsize, loss_f, p_5, p_1
         label = np.array(label)
         pos_index = np.where(label==label[i])[0]
         pos_index = torch.from_numpy(pos_index).to(device)
-        if torch.any(torch.isin(batch_pred_index[i][0:5], pos_index)):
-            p_5 = p_5 + 1
+        if torch.any(torch.isin(batch_pred_index[i][0:int(topk)], pos_index)):
+            p_k = p_k + 1
         if torch.any(torch.isin(batch_pred_index[i][0:1], pos_index)):
             p_1 = p_1 + 1
 
     if loss_f == 'CLIP':
         loss = loss + clip_loss
-        return p_5, p_1, loss, clip_loss, pred_label
+        return p_k, p_1, loss, clip_loss, pred_label
     
     elif loss_f == 'MSE':
         loss = loss + mse_loss
-        return p_5, p_1, loss, mse_loss
+        return p_k, p_1, loss, mse_loss
 
 
 def MSE_loss(outputs, wav_features, batchsize):
@@ -124,14 +127,14 @@ def CLIP_Xent(outputs, wav_features, batchsize, temperature, device):
     return clip_Xent, inner_product
 
 
-def cal_acc(batch_num, p_5, p_1, loss, batchsize):
+def cal_acc(batch_num, p_k, p_1, loss, batchsize):
     """Calculate the Top-5 and Top-1 accuracy for the entire epoch
 
     Parameters
     -----------
     batch_num: 
         The number of batches in each epoch
-    p_5: 
+    p_k: 
         The number of samples correctly predicted in Top-5 for each epoch
     p_1: 
         The number of samples correctly predicted in Top-1 for each epoch
@@ -142,7 +145,7 @@ def cal_acc(batch_num, p_5, p_1, loss, batchsize):
     """
 
     len_data = batch_num * batchsize 
-    acc5 = 100 * p_5 / len_data
+    acc5 = 100 * p_k / len_data
     acc1 = 100 * p_1 / len_data
     loss = loss / batch_num
 

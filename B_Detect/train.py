@@ -217,7 +217,7 @@ def train_net(args):
     acc_k = acc_k / k_folds
     acc_1 = acc_1 / k_folds
 
-    log_print('{} folds avg: subject:{} seed:{} test: acc5: {:.2f}, acc1: {:.2f}'.format(k_folds, args.subject_id, args.seed, test_acck, test_acc1))
+    log_print('{} folds avg: subject:{} seed:{} test: acc5: {:.2f}, acc1: {:.2f}'.format(k_folds, args.subject_id, args.seed, acc_k, acc_1))
     log_print('=' * 30)
 
 

@@ -114,7 +114,7 @@ def EA(x):
 
 
 class MakeSet(Dataset):
-    def __init__(self, seeg, wav_features, label):
+    def __init__(self, seeg, wav_features=None, label=None):
         """Create dataset
 
         Parameters
@@ -142,7 +142,13 @@ class MakeSet(Dataset):
             Item index
         """
 
-        return self.seeg[index], self.wav_features[index], self.label[index]
+        seeg_item = self.seeg[index]
+        label_item = self.label[index] if self.label is not None else None
+
+        if self.wav_features is None:
+            return seeg_item, label_item
+        else:
+            return seeg_item, self.wav_features[index], label_item
     
     
     def __len__(self):
@@ -153,14 +159,12 @@ class MakeSet(Dataset):
 
 
 if __name__ == '__main__':
-    seeg, label, in_channels = seeg_dataset(dataset='SEEG', 
-                                            subject_id='S08', 
+    seeg, label, in_channels = seeg_dataset(device_system='Natus/V_48',
+                                            subject_id='S01', 
                                             session_num=4, 
-                                            channel_path='read_good', 
-                                            label_type='word', 
-                                            fs=200, 
-                                            vad_half_window=0.3, 
-                                            sliding_step=0.1)
+                                            channel_path='read_full', 
+                                            label_type='word',
+                                            ea=False)
     print('seeg.shape:', seeg.shape)
     print('label.shape:', label.shape)
     print('in_channels', in_channels)

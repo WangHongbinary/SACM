@@ -1,58 +1,69 @@
+'''
+Author: WangHongbinary
+E-mail: hbwang22@gmail.com
+Date: 2026-01-08 17:00:21
+LastEditTime: 2026-01-14 10:22:19
+Description: Fig.6 of SACM: SEEG-Audio Contrastive Matching for Chinese Speech Decoding
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-
-
-def plot_individual_bar():
-    """Fig: Mean squared amplitude for speech and non-speech audio segments
-    """
-
-    data = np.load('./Fig6_data.npz')
-    Amplitude_word = data['Amplitude_word']
-    Amplitude_rest = data['Amplitude_rest']
-
-    word1, word2, word3, word4, word5, word6, word7, word8, word9, word10 = np.array_split(Amplitude_word, 10)
-    rest1, rest2, rest3, rest4, rest5, rest6, rest7, rest8, rest9, rest10 = np.array_split(Amplitude_rest, 10)
-
-    word_means = [np.mean(word1), np.mean(word2), np.mean(word3), np.mean(word4), np.mean(word5), 
-                  np.mean(word6), np.mean(word7), np.mean(word8), np.mean(word9), np.mean(word10), np.mean(Amplitude_word)]
-    rest_means = [np.mean(rest1), np.mean(rest2), np.mean(rest3), np.mean(rest4), np.mean(rest5), 
-                  np.mean(rest6), np.mean(rest7), np.mean(rest8), np.mean(rest9), np.mean(rest10), np.mean(Amplitude_rest)]
-
-    all_means = []
-    labels = []
-    colors = []
-
-    for i in range(len(word_means)):
-        all_means.append(word_means[i])
-        all_means.append(rest_means[i])
-        labels.append(f'{i+1}')
-        colors.append('#1D43A3')
-        colors.append('#FF7F0E')
-    labels[-1] = 'Avg.'
-
-    plt.figure(figsize=(20, 10))
-    sns.barplot(x=np.arange(len(all_means)), y=all_means, palette=colors)
-
-    plt.yscale('log')
-    plt.ylim(0, 150)
-    xticks_pos = np.arange(0.5, len(all_means), 2)
-    
-    plt.xticks(xticks_pos, labels, fontsize=32)
-    plt.yticks(fontsize=32)
-    plt.xlabel('Subject', fontsize=32)
-    plt.ylabel('Mean Squared Amplitude', fontsize=32)
-
-    from matplotlib.lines import Line2D
-    legend_elements = [Line2D([0], [0], color='#1D43A3', lw=20, label='Speech'),
-                       Line2D([0], [0], color='#FF7F0E', lw=20, label='Non-Speech')]
-    plt.legend(handles=legend_elements, fontsize=32, borderpad=0.6, ncol=2, loc='upper center')
-
-    plt.tight_layout()
-    plt.savefig('Fig6.eps', bbox_inches='tight', dpi=300)
-    plt.savefig('Fig6.png', bbox_inches='tight', dpi=300)
-
-    plt.show()
+from matplotlib.lines import Line2D
 
 if __name__ == '__main__':
-    plot_individual_bar()
+
+    temperature_n = np.array([0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1])
+
+    # avg
+    acc_hustmind  = np.array([13.09, 13.88, 15.46, 17.12, 16.65, 16.44, 15.70, 15.07])
+    acc_vocalmind = np.array([17.50, 18.33, 24.17, 30.00, 26.67, 19.17, 26.67, 19.17])
+
+    # std
+    std_hustmind  = np.array([0.37, 0.42, 0.67, 0.52, 0.52, 0.47, 0.46, 0.72])
+    std_vocalmind = np.array([4.18, 4.08, 4.92, 5.48, 5.16, 5.85, 9.31, 3.76])
+
+    bar_width = 0.35
+    x = np.arange(len(temperature_n))
+
+    plt.figure(figsize=(20, 12))
+
+    # HUST-MIND
+    plt.bar(
+        x - bar_width / 2,
+        acc_hustmind,
+        width=bar_width,
+        yerr=std_hustmind,
+        capsize=10,
+        label='HUST-MIND',
+        color='#1D43A3'
+    )
+
+    # VocalMind
+    plt.bar(
+        x + bar_width / 2,
+        acc_vocalmind,
+        width=bar_width,
+        yerr=std_vocalmind,
+        capsize=10,
+        label='VocalMind',
+        color='#8FA3E6'
+    )
+
+    plt.xticks(x, temperature_n)
+    plt.tick_params(axis='x', labelsize=30)
+    plt.tick_params(axis='y', labelsize=30)
+    plt.xlabel('Temperature τ', fontsize=30)
+    plt.ylabel('Accuracy (%)', fontsize=30)
+    plt.ylim(0, 45)
+
+    plt.grid(axis='y', linestyle='--', alpha=1.0)
+
+    legend_elements = [Line2D([0], [0], color='#1D43A3', lw=30, label='HUST-MIND'),
+                       Line2D([0], [0], color='#8FA3E6', lw=30, label='VocalMind')]
+    plt.legend(handles=legend_elements, fontsize=30, borderpad=0.8, ncol=2, loc='upper center')
+
+    plt.tight_layout()
+    plt.savefig('temperature.eps', bbox_inches='tight', dpi=300)
+    plt.savefig('temperature.png', bbox_inches='tight', dpi=300)
+
+    plt.show()

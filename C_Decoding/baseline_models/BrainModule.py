@@ -4,7 +4,7 @@ from math import fmod
 from typing import Optional
 import torch.nn.functional as F
 from torchsummary import summary as summary1
-
+from torch.backends import cudnn
 
 def weights_init(m):
     if isinstance(m, torch.nn.Conv1d) or isinstance(m, torch.nn.Conv2d):
@@ -22,10 +22,10 @@ def weights_init(m):
             torch.nn.init.constant_(m.bias, 0.0)
 
 
-class Net(nn.Module):
-    def __init__(self, data_dim=14, out_channels=32):
+class BrainModule(nn.Module):
+    def __init__(self, data_dim=54, time_sample_num=320, out_channels=256, n_classes=48):
 
-        super(Net, self).__init__()
+        super(BrainModule, self).__init__()
 
         self.in_channels = data_dim
         self.out_channels = out_channels
@@ -70,10 +70,16 @@ class Net(nn.Module):
             nn.Conv2d(in_channels=320, out_channels=640, kernel_size=(1, 1), stride=1),
             nn.GELU(),
             nn.Conv2d(in_channels=640, out_channels=self.out_channels, kernel_size=(1, 1), stride=1))
+        
+        self.cls = nn.Sequential(
+            nn.Linear(in_features=out_channels * time_sample_num, out_features=n_classes, bias=True))
+
 
     def forward(self, data):
 
         x = data
+        x = x.squeeze(1)
+        x = x.unsqueeze(2)
 
         out = self.init_layer(x)
         out = self.conv_block_1(out)
@@ -82,6 +88,8 @@ class Net(nn.Module):
         out = self.conv_block_4(out)
         out = self.conv_block_5(out)
         out = self.output_block(out)
+        out = out.reshape(out.size(0), -1)
+        out = self.cls(out)
 
         return out
 
@@ -118,61 +126,16 @@ class Residual(nn.Module):
         out = self.after_conv(x + out)
         return out
 
-class Audio_Proj(nn.Module):
-    """
-    Project HuBERT features from (B, C=768, T=79)
-    to (B, C=128, T=32)
-    """
-    def __init__(self,
-                 in_dim=768,
-                 out_dim=128,
-                 in_time=79,
-                 out_time=32,
-                 dropout=0.1):
-        super().__init__()
-
-        self.out_time = out_time
-
-        self.channel_proj = nn.Sequential(
-            nn.Linear(in_dim, out_dim),
-            nn.LayerNorm(out_dim),
-            nn.GELU(),
-            nn.Dropout(dropout)
-        )
-
-    def forward(self, x):
-        """
-        x: (B, C, T) = (B, 768, 79)
-        return: (B, 128, 32)
-        """
-
-        x = x.permute(0, 2, 1)        # (B, 79, 768)
-        x = self.channel_proj(x)      # (B, 79, 128)
-        x = x.permute(0, 2, 1)        # (B, 128, 79)
-        x = F.interpolate(
-            x,
-            size=self.out_time,
-            mode='linear',
-            align_corners=False
-        )
-
-        return x
-
 def test_Net():
-    model = Net(data_dim=45, out_channels=768).cuda()
-    summary1(model, input_size=(45, 1, 320))
-    input = torch.randn(2, 45, 1, 320).cuda()
+    model = BrainModule(data_dim=54, 
+                        time_sample_num=320, 
+                        out_channels=256,
+                        n_classes=48).cuda()
+    input = torch.randn(48, 54, 1, 320).cuda()
     out = model(input)
     print('output shape:', out.shape)
-
-def test_Proj():
-    model = Audio_Proj(in_dim=768, out_dim=128, in_time=79, out_time=32).cuda()
-    input = torch.randn(48, 768, 79).cuda()
-    audio_out = model(input)
-    print('audio_out shape:', audio_out.shape)
 
 
 if __name__ == '__main__':
 
     test_Net()
-    test_Proj()
